@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>雷速 · 信息索引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f9fd;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #1c2e3a;
+            padding: 0 1.5rem 3rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ---------- 顶部导航（轻量卡片式） ---------- */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0 0.8rem;
+            border-bottom: 1px solid #d3e3ed;
+            margin-bottom: 1.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 550;
+            letter-spacing: 0.5px;
+            color: #0b4f6c;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo i {
+            font-style: normal;
+            background: #1c7b9e;
+            color: #f2fcff;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.4rem 1.6rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1d5a74;
+            font-size: 0.95rem;
+            padding: 0.2rem 0.3rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.15s, color 0.15s;
+            font-weight: 470;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #27a3c7;
+            color: #0b4f6c;
+        }
+
+        /* ---------- hero 简洁 ---------- */
+        .hero {
+            background: #eef6fa;
+            padding: 2.8rem 2rem;
+            border-radius: 32px;
+            margin: 1rem 0 2.5rem;
+            box-shadow: 0 6px 14px rgba(32, 87, 109, 0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hero h1 {
+            font-size: 2.1rem;
+            font-weight: 540;
+            letter-spacing: -0.3px;
+            color: #073b4f;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero p {
+            max-width: 700px;
+            font-size: 1.08rem;
+            color: #1f4b5f;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero .tagline {
+            background: #cde6f1;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #0f506b;
+            display: inline-block;
+        }
+
+        /* ---------- 索引网格卡片 ---------- */
+        .section-title {
+            font-size: 1.45rem;
+            font-weight: 510;
+            color: #0b4f6c;
+            margin: 2.5rem 0 1.2rem;
+            border-left: 5px solid #249bbd;
+            padding-left: 1rem;
+        }
+
+        .scene-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.6rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.8rem 1.5rem 1.5rem;
+            box-shadow: 0 4px 12px rgba(14, 60, 80, 0.06);
+            transition: transform 0.15s, box-shadow 0.2s;
+            border: 1px solid #e2eef6;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(16, 75, 100, 0.08);
+            border-color: #bcd7e6;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 530;
+            color: #0b5472;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 span {
+            background: #c2dfed;
+            color: #05415a;
+            font-size: 0.85rem;
+            padding: 0.1rem 0.7rem;
+            border-radius: 40px;
+            font-weight: 450;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #1d4b5e;
+            margin-bottom: 0.6rem;
+        }
+
+        .card .meta {
+            border-top: 1px dashed #d5e6f0;
+            margin-top: 0.8rem;
+            padding-top: 0.7rem;
+            font-size: 0.88rem;
+            color: #2f677f;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .card .meta i {
+            font-style: normal;
+            background: #e5f0f7;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+        }
+
+        /* ---------- 常见说明（折叠摘要风格） ---------- */
+        .faq-summary {
+            margin: 2.2rem 0 2rem;
+            background: #e9f3f9;
+            padding: 1.6rem 2rem 2rem;
+            border-radius: 30px;
+        }
+
+        .faq-summary h2 {
+            font-size: 1.35rem;
+            font-weight: 510;
+            color: #073b4f;
+            margin-bottom: 1.2rem;
+        }
+
+        .faq-item {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #cfe0eb;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: 530;
+            color: #0c4f6a;
+            margin-bottom: 0.2rem;
+            font-size: 1rem;
+        }
+
+        .faq-item p {
+            font-size: 0.95rem;
+            color: #1f4c5f;
+            margin: 0.15rem 0 0.2rem;
+        }
+
+        .faq-item .hint {
+            font-size: 0.85rem;
+            color: #326b83;
+            background: #dcebf4;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+
+        /* ---------- 嵌入链接的自然句子 ---------- */
+        .inline-link-box {
+            background: #f0f7fc;
+            padding: 1.4rem 1.8rem;
+            border-radius: 60px;
+            margin: 0.5rem 0 0.8rem;
+            font-size: 1.02rem;
+            color: #144a5f;
+            display: inline-block;
+            width: auto;
+            border: 1px solid #cae0ec;
+        }
+
+        .inline-link-box a {
+            color: #11728e;
+            text-decoration: none;
+            font-weight: 530;
+            border-bottom: 1.5px solid #7dbdd6;
+            padding-bottom: 1px;
+        }
+
+        .inline-link-box a:hover {
+            color: #054e68;
+            border-bottom-color: #054e68;
+        }
+
+        /* ---------- 页脚 ---------- */
+        footer {
+            margin-top: 2.8rem;
+            padding: 0.8rem 0 0.3rem;
+            border-top: 1px solid #d0e0ea;
+            font-size: 0.9rem;
+            color: #2b637b;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.6rem;
+        }
+
+        footer span {
+            opacity: 0.7;
+        }
+
+        /* ---------- 响应式 ---------- */
+        @media (max-width: 640px) {
+            body {
+                padding: 0 1rem 2.5rem;
+            }
+
+            .hero {
+                padding: 2rem 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+
+            .nav-links {
+                gap: 0.6rem;
+                margin-top: 0.2rem;
+            }
+
+            .card {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .faq-summary {
+                padding: 1.2rem 1.2rem 1.5rem;
+            }
+
+            .inline-link-box {
+                font-size: 0.95rem;
+                padding: 1rem 1.4rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <!-- 导航 -->
+    <nav>
+        <div class="logo">
+            <i>⚡</i> 索引·雷速
+        </div>
+        <div class="nav-links">
+            <a href="#scenes">场景</a>
+            <a href="#notes">说明</a>
+            <a href="#info">索引</a>
+        </div>
+    </nav>
+
+    <!-- hero 区：信息整理角度 -->
+    <div class="hero">
+        <h1>把零散资料，整成顺手索引</h1>
+        <p>面对每天冒出来的网页、笔记、截图——<strong>雷速</strong> 提供一种轻量的整理思路：不是收藏夹，也不是数据库，更像一个帮你理清脉络的草稿本。</p>
+        <div class="tagline">📋 信息索引 · 场景归类 · 常见问题</div>
+    </div>
+
+    <!-- 三个场景模块 网格卡片 -->
+    <h2 class="section-title" id="scenes">📌 三个常用整理场景</h2>
+    <div class="scene-grid">
+        <div class="card">
+            <h3>📚 研究笔记 <span>标签化</span></h3>
+            <p>把分散在浏览器标签页、本地文档里的内容，按项目或主题做索引。保留原文链接和日期，方便回溯。</p>
+            <div class="meta">
+                <i>📎 批次归档</i>
+                <i>🔖 自定义关键词</i>
+            </div>
+        </div>
+        <div class="card">
+            <h3>🧩 日常参考 <span>速查</span></h3>
+            <p>工具配置、操作流程、常用参数…… 汇集那些“每次都要翻半天”的信息，一个索引页面就能少点几次鼠标。</p>
+            <div class="meta">
+                <i>⚙️ 精简条目</i>
+                <i>📅 更新记录</i>
+            </div>
+        </div>
+        <div class="card">
+            <h3>🌐 网页切片 <span>片段</span></h3>
+            <p>看到有用的段落、数据、说明，截取关键描述，配上原文链接。既保留出处，又不让原文淹没在收藏夹里。</p>
+            <div class="meta">
+                <i>🔗 引用链接</i>
+                <i>📝 短备注</i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 常见说明 / 轻量 FAQ -->
+    <div class="faq-summary" id="notes">
+        <h2>📖 关于这种索引方式</h2>
+        <div class="faq-item">
+            <strong>索引和收藏夹有什么差别？</strong>
+            <p>收藏夹偏重保存，索引更关注“之后怎么找到”。加上自己的描述和标签，回忆成本低很多。</p>
+        </div>
+        <div class="faq-item">
+            <strong>适合哪些人？</strong>
+            <p>经常查资料、写东西，或者手头同时有好几个项目的人。对信息敏感，并且愿意花几分钟整理。</p>
+            <span class="hint">⏳ 每次整理 ≈ 泡杯茶的工夫</span>
+        </div>
+        <div class="faq-item">
+            <strong>要专门软件吗？</strong>
+            <p>一个 html 页面甚至一个文档就能起步。等习惯了，再考虑工具也不晚。</p>
+        </div>
+    </div>
+
+    <!-- 嵌入链接的自然句子，满足 a 标签文本 = 雷速 -->
+    <div class="inline-link-box">
+        💡 如果你也在琢磨怎么打理手头的资料集合，可以看看 <a href="https://pc-index-rayspeed.com">雷速</a> 这个页面——里面有一些索引思路和整理习惯，或许能给你一点参考。
+    </div>
+
+    <!-- 再加一段关于索引的内容，丰富语境 -->
+    <p style="background: #f4faff; padding: 0.8rem 1.4rem; border-radius: 50px; color: #144a5f; font-size: 0.96rem; margin: 0.8rem 0;">
+        ⚡ 索引不是终点，是下一次查找的起点。保持轻量，减少重复劳动。
+    </p>
+
+    <!-- 页脚 -->
+    <footer>
+        <span>内容索引 · 场景卡片</span>
+        <span>基于整理思路 · 非官方说明</span>
+    </footer>
+</div>
+</body>
+</html>
